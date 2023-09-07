@@ -1,0 +1,220 @@
+[{
+    "_id": {
+      "$oid": "64e708aa6e99569e6d12c850"
+    },
+    "cooldown": 0,
+    "cost": 0,
+    "message": "@[sender] is now lurking! thanks for the lurk!",
+    "permission": 0,
+    "enabled": true,
+    "aliases": [
+      "lurk"
+    ],
+    "name": "lurk",
+    "file": false,
+    "usage": "none",
+    "cooldowntype": "user"
+  },
+  {
+    "_id": {
+      "$oid": "64e708c00fa9767ab4e8a8c6"
+    },
+    "cooldown": 0,
+    "cost": 0,
+    "message": "",
+    "permission": 0,
+    "enabled": true,
+    "aliases": [
+      "points"
+    ],
+    "name": "points",
+    "file": true,
+    "usage": "none",
+    "cooldowntype": "user"
+  },
+  {
+    "_id": {
+      "$oid": "64e708cba097c0279fd08748"
+    },
+    "cooldown": 0,
+    "cost": 0,
+    "message": "",
+    "permission": 4,
+    "enabled": true,
+    "aliases": [
+      "addcmd"
+    ],
+    "name": "addcmd",
+    "file": true,
+    "usage": "none",
+    "cooldowntype": "user"
+  },
+  {
+    "_id": {
+      "$oid": "64e708e3857811cc8388f7af"
+    },
+    "cooldown": 0,
+    "cost": 0,
+    "message": "",
+    "permission": 4,
+    "enabled": true,
+    "aliases": [
+      "apoints"
+    ],
+    "name": "apoints",
+    "file": true,
+    "usage": "none",
+    "cooldowntype": "user"
+  },
+  {
+    "_id": {
+      "$oid": "64e708ea4e4a1e4aac429193"
+    },
+    "cooldown": 5,
+    "cost": 0,
+    "message": "",
+    "permission": 0,
+    "enabled": true,
+    "aliases": [
+      "commands"
+    ],
+    "name": "commands",
+    "file": true,
+    "usage": "none",
+    "cooldowntype": "user"
+  },
+  {
+    "_id": {
+      "$oid": "64e708f281eb3a5c9030f296"
+    },
+    "cooldown": 5,
+    "cost": 0,
+    "message": "",
+    "permission": 5,
+    "enabled": true,
+    "aliases": [
+      "gamble"
+    ],
+    "name": "gamble",
+    "file": true,
+    "usage": "none",
+    "cooldowntype": "user"
+  },
+  {
+    "_id": {
+      "$oid": "64e70904f5da0c9a04132f5c"
+    },
+    "cooldown": 5,
+    "cost": 0,
+    "message": "",
+    "permission": 5,
+    "enabled": true,
+    "aliases": [
+      "listsounds"
+    ],
+    "name": "listsounds",
+    "file": true,
+    "usage": "none",
+    "cooldowntype": "user"
+  },
+  {
+    "_id": {
+      "$oid": "64e7091697933d95d4887b84"
+    },
+    "cooldown": 10,
+    "cost": 0,
+    "message": "",
+    "permission": 5,
+    "enabled": true,
+    "aliases": [
+      "slots"
+    ],
+    "name": "slots",
+    "file": true,
+    "usage": "none",
+    "cooldowntype": "user"
+  },
+  {
+    "_id": {
+      "$oid": "64e7092621a326b5b22ac6d2"
+    },
+    "cooldown": 20,
+    "cost": 0,
+    "message": "",
+    "permission": 0,
+    "enabled": true,
+    "aliases": [
+      "sound"
+    ],
+    "name": "sound",
+    "file": true,
+    "usage": "none",
+    "cooldowntype": "global"
+  },
+  {
+    "_id": {
+      "$oid": "64e70a27e087137c7c10c6ff"
+    },
+    "cooldown": 0,
+    "cost": 0,
+    "message": "",
+    "permission": 4,
+    "enabled": true,
+    "aliases": [
+      "editcmd"
+    ],
+    "name": "editcmd",
+    "file": true,
+    "usage": "none",
+    "cooldowntype": "user"
+  },
+  {
+    "_id": {
+      "$oid": "64e72219fa8ccf45902c4c0c"
+    },
+    "cooldown": 0,
+    "cost": 0,
+    "message": "go make sure to check out (arg1) at https://kick.com/(arg1)",
+    "permission": 0,
+    "enabled": true,
+    "aliases": [
+      "so"
+    ],
+    "name": "so",
+    "file": false,
+    "cooldowntype": "user"
+  },
+  {
+    "_id": {
+      "$oid": "64e90a32d18e1b0e3193c836"
+    },
+    "cooldown": 0,
+    "cost": 0,
+    "message": "join my discord at",
+    "permission": 0,
+    "enabled": true,
+    "aliases": [
+      "tts"
+    ],
+    "name": "tts",
+    "file": true,
+    "usage": "none",
+    "cooldowntype": "user",
+    "type": "off"
+  },
+  {
+    "_id": {
+      "$oid": "64ed0d13f6b3d845996ded00"
+    },
+    "cooldown": 0,
+    "cost": 0,
+    "message": "test",
+    "permission": 5,
+    "enabled": true,
+    "aliases": [
+      "settings"
+    ],
+    "name": "settings",
+    "file": true,
+    "cooldowntype": "user"
+  }]
