@@ -2,7 +2,7 @@
 made by [Ryohei](https://kick.com/Ryohei), using kick.py 
 
 ## How to run?
-simply download the source code from releases, extract to a folder,
+simply download [the latest release](https://github.com/VaatiTheMinish/Kick-Streaming-Bot/releases), extract to a folder,
 then do 'python launcher.py'
 
 make sure you have git, and python installed
