@@ -11,15 +11,17 @@ import requests
 
 message = ""
 
+# Read the bot's config file
+config = configparser.ConfigParser()
+config_file = "config/config.ini"
+config.read(config_file)
+
 def check_version():
-    config_file = "config/config.ini"
     global bot_version
     global message
     bot_version = ""
 
-    # Read the bot's version from the config file
-    config = configparser.ConfigParser()
-    config.read(config_file)
+
     try:
         bot_version = config.get("version", "version")
     except:
@@ -64,6 +66,10 @@ def main_menu():
         global message
         message = ("Detected first launch. Please run setup")
 
+    if not config.has_section('database'):
+        message = ("No Database configuration founnd. Please run setup")
+    if not config.has_section('botcredentials'):
+        message = ("No Bot Credentials found. Please run setup")
 
     while True:
         os.system("clear")
