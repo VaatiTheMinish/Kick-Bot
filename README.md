@@ -9,3 +9,7 @@ make sure you have git, and python installed
 
 
 need help? [join my discord ](https://discord.gg/2RmfmW28WZ)
+
+## Required Programs
+[Git](https://git-scm.com/)
+[Python](https://www.python.org/)
