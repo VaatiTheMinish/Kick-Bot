@@ -17,7 +17,7 @@ async def listsounds(message: Message):
         directory = "sounds/"
         
         # List all .mp3 files in directory, remove '.mp3' part from each name
-        filenames = [f.replace('.wav', '') for f in os.listdir(directory) if f.endswith('.wav')]
+        filenames = [f.replace('.mp3', '') for f in os.listdir(directory) if f.endswith('.mp3')]
         
         # Define the number of results per page and calculate start and end indices for slicing
         PAGE_SIZE = 10

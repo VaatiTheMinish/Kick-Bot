@@ -17,7 +17,7 @@ async def sound(msg: Message):
         await msg.chatroom.send('Usage !sound (sound name). To view a list of sounds use !listsounds')
         return 
 
-    sound_file = sound_name[0] + ".wav"
+    sound_file = sound_name[0] + ".mp3"
     sound_path = os.path.join("sounds", sound_file)
 
     if os.path.exists(sound_path):
@@ -26,7 +26,4 @@ async def sound(msg: Message):
         await msg.chatroom.send("Sound file not found. To view a list of sounds use !listsounds")
 
 def play_sound(sound_path):
-    subprocess.Popen(["ffplay", "-nodisp", "-autoexit", sound_path], stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-
-
+    subprocess.Popen(["ffplay.exe", "-nodisp", "-autoexit", sound_path], stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
