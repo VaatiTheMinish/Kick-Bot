@@ -22,7 +22,7 @@
 - Enter Bot's Email: - Put the email used to login to the bot here
 - Enter Bot's Password: - Put the password used to log into the bot
 
-When we get to this part please follow [Database setup guide](), then come back to this step
+When we get to this part please follow [Database setup guide](https://github.com/VaatiTheMinish/Kick-Streaming-Bot/blob/main/docs/installation/database.md), then come back to this step
 - Enter MongoDB Connection String: Paste the connection string provided, make sure to change the values
 - Enter MongoDB Database name: this is the <database> value in the connection string
 
