@@ -7,7 +7,7 @@ from kick import Message
 #
 
 async def tts(args, message: Message):
-    print("TTS SETTINGS RAN")
+    #print("TTS SETTINGS RAN")
     valid_keys = ["type", "cooldown", "maxtext", "maxnumbers"]
 
     if args[1] not in valid_keys:
@@ -41,18 +41,19 @@ async def tts(args, message: Message):
     async with db_context as db:
         tts_doc= db.general
         await tts_doc.update_one({'name': 'tts'}, {'$set': {field: value}})
-        print(f"{field.capitalize()} updated to: {value}")
+        message.chatroom.send(f"{field.capitalize()} updated to: {value}")
 
     return
 
 
 async def points(args, message: Message):
-    print(args)
-    valid_keys = ["points"]
+    valid_keys = ["enabled", "cooldown", "min", "max"]
 
     if args[1] not in valid_keys:
         await message.chatroom.send("Usage !settings points [cooldown|enabled]")
         return
+
+    #print (bool(args[2].lower)) - Future use
 
     update_operations = {
         'cooldown': (int, 'Invalid value for cooldown. It should be a number.', 'cooldown'),
@@ -72,12 +73,12 @@ async def points(args, message: Message):
     async with db_context as db:
         points_collection = db.general
         await points_collection.update_one({'name': 'tts'}, {'$set': {field: value}})
-        print(f"{field.capitalize()} updated to: {value}")
+        message.chatroom.send(f"{field.capitalize()} updated to: {value}")
 
     return
 
 async def pointsmiltiplier(args, message: Message):
-    print(args)
+    #print(args)
     valid_keys = ["founder","subscriber", "moderator", "vip", "og", "default", "broadcaster", "enabled"]
 
     if not args[1]:
@@ -109,7 +110,7 @@ async def pointsmiltiplier(args, message: Message):
 
     async with db_context as db:
         points_collection = db.general
-        await points_collection.update_one({'name': 'tts'}, {'$set': {args[1]: value}})
+        await points_collection.update_one({'name': 'multiplier'}, {'$set': {args[1]: value}})
         await message.chatroom.send(f"{args[1].capitalize()} points multiplier updated to: {value}")
 
     return

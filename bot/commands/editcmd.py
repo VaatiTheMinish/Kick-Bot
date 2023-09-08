@@ -44,7 +44,7 @@ async def cost(args, msg: Message):
         command = await commands_collection.find_one({"name": command_name})
         if command:
             await commands_collection.update_one({"name": command_name}, {"$set": {"cost": cost_value}})
-            print(f"Set cost of command: {command_name} to {cost_value}")
+            msg.chatroom.send(f"Set cost of command: {command_name} to {cost_value}")
     return
 
 async def cooldown(args, msg: Message):
@@ -55,7 +55,7 @@ async def cooldown(args, msg: Message):
         command = await commands_collection.find_one({"name": command_name})
         if command:
             await commands_collection.update_one({"name": command_name}, {"$set": {"cooldown": cooldown_value}})
-            print(f"Set cooldown of command: {command_name} to {cooldown_value}")
+            msg.chatroom.send(f"Set cooldown of command: {command_name} to {cooldown_value}")
     return
 
 async def message(args, msg: Message):
@@ -66,7 +66,7 @@ async def message(args, msg: Message):
         command = await commands_collection.find_one({"name": command_name})
         if command:
             await commands_collection.update_one({"name": command_name}, {"$set": {"message": message_value}})
-            print(f"Set message of command: {command_name} to {message_value}")
+            msg.chatroom.send(f"Set message of command: {command_name} to {message_value}")
     return
 
 async def isfile(args, msg: Message):
@@ -81,7 +81,7 @@ async def isfile(args, msg: Message):
         command = await commands_collection.find_one({"name": command_name})
         if command:
             await commands_collection.update_one({"name": command_name}, {"$set": {"file": file_value}})
-            print(f"Set file to: {command_name} to {file_value}")
+            msg.chatroom.send(f"Set file to: {command_name} to {file_value}")
     return
 
 async def cooldowntype(args, msg: Message):
@@ -96,7 +96,7 @@ async def cooldowntype(args, msg: Message):
         command = await commands_collection.find_one({"name": command_name})
         if command:
             await commands_collection.update_one({"name": command_name}, {"$set": {"cooldowntype": cooldowntype}})
-            print(f"Set cooldown for {command_name} to {cooldowntype}")
+            msg.chatroom.send(f"Set cooldown for {command_name} to {cooldowntype}")
     return
 
 async def permission(args, msg: Message):
@@ -104,7 +104,7 @@ async def permission(args, msg: Message):
     permission = ' '.join(args[2:])
 
     if permission not in ["0","1","2","3","4","5"]:
-        print("Permission must be 0 to 5")
+        msg.chatroom.send("Permission must be 0 to 5")
         return
     if permission == 0:
         permission == -1
@@ -116,7 +116,7 @@ async def permission(args, msg: Message):
         command = await commands_collection.find_one({"name": command_name})
         if command:
             await commands_collection.update_one({"name": command_name}, {"$set": {"permission": permission}})
-            print(f"Set permission for {command_name} to {permission}")
+            msg.chatroom.send(f"Set permission for {command_name} to {permission}")
     return
 
 subcommands = {
@@ -145,9 +145,8 @@ async def editcmd(msg: Message):
         async with db_context as db:
             commands_collection = db.commands
             command = await commands_collection.find_one({"name": command_name})
-            print(f"Command: {command}")
             if command:
                 await sub_command(args, msg)
             else:
-                print(f"Command {command_name} does not exist in database")
+                msg.chatroom.send(f"Command {command_name} does not exist")
     return
