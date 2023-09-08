@@ -3,6 +3,8 @@ made by [Ryohei](https://kick.com/Ryohei), using kick.py
 
 # How to run?
 ## Required Programs
+- Id recommend to use [chocolatey](https://chocolatey.org/) as it will make installing the programs eaiser 
+
 - [Git](https://git-scm.com/)
 - [Python](https://www.python.org/)
 - [mongodb database](https://www.mongodb.com/atlas/database)
