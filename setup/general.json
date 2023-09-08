@@ -43,12 +43,13 @@
     "name": "multiplier",
     "enabled": false
   },
-  {
-    "_id": {
-      "$oid": "64ed3c3543e60c7dc5bd85c6"
-    },
-    "name": "points",
-    "cooldown": 30,
-    "min": 0,
-    "max": 10
-  }]
+{
+  "_id": {
+    "$oid": "64ed3c3543e60c7dc5bd85c6"
+  },
+  "name": "points",
+  "cooldown": 30,
+  "min": 0,
+  "max": 10,
+  "enabled": true
+}]
