@@ -68,11 +68,13 @@ def main():
     check_git_installed()
 
     config = ConfigParser()
-
+    config_file = "config/config.ini"
+    config.read(config_file)
     # Check if config.ini file exists
-    if not os.path.exists('config/config.ini'):
-        recreate_creds = "y"
+    if not config.has_section('database'):
         recreate_db_string = "y"
+    if not config.has_section('botcredentials'):
+        recreate_creds = "y"
     else:
         config.read('config/config.ini')
         recreate_creds = input("Credentials Exist? Recreate y/N: ")
