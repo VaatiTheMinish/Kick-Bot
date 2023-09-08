@@ -10,7 +10,7 @@ made by [Ryohei](https://kick.com/Ryohei), using kick.py
 simply download [the latest release](https://github.com/VaatiTheMinish/Kick-Streaming-Bot/releases), extract to a folder,
 then do 'python launcher.py' 
 
-[Here is a full guide](https://github.com/VaatiTheMinish/Kick-Streaming-Bot/blob/main/docs/installation/setup-and-install.md) 
+[Here is a full guide](https://github.com/VaatiTheMinish/Kick-Streaming-Bot/wiki/Installation) 
 
 
 need help? [join my discord ](https://discord.gg/2RmfmW28WZ)
