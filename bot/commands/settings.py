@@ -41,7 +41,7 @@ async def tts(args, message: Message):
     async with db_context as db:
         tts_doc= db.general
         await tts_doc.update_one({'name': 'tts'}, {'$set': {field: value}})
-        message.chatroom.send(f"{field.capitalize()} updated to: {value}")
+        await message.chatroom.send(f"{field.capitalize()} updated to: {value}")
 
     return
 
@@ -73,7 +73,7 @@ async def points(args, message: Message):
     async with db_context as db:
         points_collection = db.general
         await points_collection.update_one({'name': 'tts'}, {'$set': {field: value}})
-        message.chatroom.send(f"{field.capitalize()} updated to: {value}")
+        await message.chatroom.send(f"{field.capitalize()} updated to: {value}")
 
     return
 
@@ -138,3 +138,4 @@ async def settings(message: Message):
     else:
         # handle the case where split_message has less than 2 elements
         await message.chatroom.send("Usage !settings [points|tts|pointsmiltiplier] [setting] [value]")
+        

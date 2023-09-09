@@ -10,19 +10,19 @@ async def addcmd(msg: Message):
     message_value = ' '.join(args[1:])
     
     if not message_value:
-        msg.chatroom.send("usage !addcmd (name) (message)")
+        await msg.chatroom.send("usage !addcmd (name) (message)")
         return
 
     async with db_context as db:
         commands_collection = db.commands
         command = await commands_collection.find_one({"name": command_name})
         if command:
-            msg.chatroom.send(f"The command {command_name} already exists.")
+            await msg.chatroom.send(f"The command {command_name} already exists.")
             return
 
         alias_command = await commands_collection.find_one({"aliases": command_name})
         if alias_command:
-            msg.chatroom.send(f"The command {command_name} already exists as an alias.")
+            await msg.chatroom.send(f"The command {command_name} already exists as an alias.")
             return
 
         new_command = {
@@ -37,5 +37,5 @@ async def addcmd(msg: Message):
             "cooldowntype": "user"
         }
         await commands_collection.insert_one(new_command)
-        msg.chatroom.send(f"Command !{command_name} has been successfully added.")
+        await msg.chatroom.send(f"Command !{command_name} has been successfully added.")
     return
