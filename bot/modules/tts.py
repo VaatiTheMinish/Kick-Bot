@@ -76,28 +76,35 @@ async def skip_audio():
         pygame.mixer.music.stop()  # Stop that audio
         await play_from_queue()  # Start playing the next audio in the queue
 
-async def texttospeach(msg: Message):
+async def checkdb():
     async with db_context as db:
         tts = await db.general.find_one({"name": "tts"}, {"_id": 0})
+    return tts
 
-#YES I WILL IMPROVE THIS WILL PUSH THAT LATER
-    if tts['type'] == 'off':
-        logging.info("TTS IS OFF")
+async def off(msg: Message):
+    return
+
+async def chat(msg: Message):
+    tts = await checkdb()
+    if await command_cooldown(msg.author.id, "tts", tts['cooldown']):
+        logging.info("User is in cooldown")
         return
-    elif tts['type'] == "chat":
-        if await command_cooldown(msg.author.id, "tts", tts['cooldown']):
-            logging.info("User is in cooldown")
-            return
-        await texttoseach(msg)
-        return
-    else:
-        print("RUNNING FROM TTS COMMAND")
-        if await viewpoints(msg.author.id) > tts['cost']:
-            logging.info("User has the correct points")
-            await texttoseach(msg)
-        else:
-            logging.info("user does not have the required points")
-            return
+    await texttoseach(msg)
+    return
+
+async def command(msg: Message):
+    await texttoseach(msg)
+    return
+
+ttstype = {
+    "off": off,
+    "chat": chat,
+    "cmd": command
+}
+
+async def texttospeach(msg: Message):
+    tts = await checkdb()
+    await ttstype[tts['type']](msg) 
 
 async def texttoseach(msg: Message):
 
