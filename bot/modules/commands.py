@@ -4,6 +4,7 @@ from modules.database import db_context
 from modules.cooldown import command_cooldown
 from modules.points import viewpoints, rmpoints
 from modules.permissions import PermissionSystem
+import globals
 
 permission_system = PermissionSystem()
 
