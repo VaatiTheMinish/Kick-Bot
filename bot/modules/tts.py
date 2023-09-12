@@ -80,15 +80,24 @@ async def texttospeach(msg: Message):
     async with db_context as db:
         tts = await db.general.find_one({"name": "tts"}, {"_id": 0})
 
-    if await command_cooldown(msg.author.id, "tts", tts['cooldown']):
-        return
-
+#YES I WILL IMPROVE THIS WILL PUSH THAT LATER
     if tts['type'] == 'off':
+        logging.info("TTS IS OFF")
         return
     elif tts['type'] == "chat":
+        if await command_cooldown(msg.author.id, "tts", tts['cooldown']):
+            logging.info("User is in cooldown")
+            return
         await texttoseach(msg)
+        return
     else:
-        await texttoseach(msg)
+        print("RUNNING FROM TTS COMMAND")
+        if await viewpoints(msg.author.id) > tts['cost']:
+            logging.info("User has the correct points")
+            await texttoseach(msg)
+        else:
+            logging.info("user does not have the required points")
+            return
 
 async def texttoseach(msg: Message):
 
