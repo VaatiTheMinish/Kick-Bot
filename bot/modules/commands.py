@@ -74,6 +74,14 @@ async def processCommands(msg: Message, command: str):
             for i, arg in enumerate(args[1:], start=1):
                 message = message.replace(f"(arg{i})", arg)
 
+            try:
+                logging.info("Username is valid and exists")
+                user = await globals.client.fetch_user(arg)
+                print(f"User {user.username}")
+            except:
+                logging.info("Username does not exist, applying a fix which may work")
+                message = message.replace("-", "_").replace("_", "-")
+
             message = message.replace("@ ", "")  # Replace "@" followed by a space
             message = message.replace("@", "")   # Replace standalone "@"
           
