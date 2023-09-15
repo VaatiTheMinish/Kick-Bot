@@ -1,8 +1,24 @@
 #!addcmd (name) (message)
 #name becomes ailas
 
+from commands.commands import commands
 from modules.database import db_context
 from kick import Message
+from globals import client, commands, commands_dir
+
+
+async def reload_commands(new_command):
+    async with db_context as db:
+        command_docs = await db.commands.find().to_list(length=None)
+        total_commands = len(command_docs)
+        loaded_commands = 0
+        print(f"!{new_command} added Reloading Commands")
+        for command_doc in command_docs:
+            #print(f"{command_doc['name']} with aliases: {', '.join(command_doc['aliases'])}")
+            for alias in command_doc['aliases']:
+                commands[alias] = command_doc['_id']
+        print(f" Successfully reloaded {total_commands} commands")
+
 
 async def addcmd(msg: Message):
     args = msg.content.replace("!addcmd ","").split(" ")
@@ -37,5 +53,7 @@ async def addcmd(msg: Message):
             "cooldowntype": "user"
         }
         await commands_collection.insert_one(new_command)
+        await reload_commands(args[0])
         await msg.chatroom.send(f"Command !{command_name} has been successfully added.")
+
     return

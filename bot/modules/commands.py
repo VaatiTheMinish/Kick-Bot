@@ -1,3 +1,4 @@
+import logging
 import os
 from kick import Message
 from modules.database import db_context
@@ -10,6 +11,8 @@ permission_system = PermissionSystem()
 
 async def processCommands(msg: Message, command: str):
     args = msg.content.split(" ")
+    uargs = msg.content.split(" ")
+
     commandName = args[0][1:].casefold() # remove the '!' prefix
     
     async with db_context as db:
@@ -17,24 +20,25 @@ async def processCommands(msg: Message, command: str):
 
     if command_doc and command_doc['enabled']:
         #Debug Code - This is for testing and making sure that it is properly loading the commands as they are ran
-        #print(f"Enabled: {command_doc['enabled']} Loaded command: {command_doc['name']} with aliases: {', '.join(command_doc['aliases'])}")
+        
+        logging.info(f"Enabled: {command_doc['enabled']} Loaded command: {command_doc['name']} with aliases: {', '.join(command_doc['aliases'])}")
         
         #Check to make sure the command is enabled
         if command_doc and command_doc['enabled']:
             if command_doc['enabled'] == False:
                 #Debug Code - For making sure disabled commands are working
-                print("command is disabled")
+                logging.info("command is disabled")
 
             badges = msg.author.badges
             badge_types = [badge['type'] for badge in badges]
             user_permission = await permission_system.get_permission_level(badge_types)
 
             #Debug Code - to make sure permissions are working correctly 
-            #print(f"User Perm: {user_permission} | Cmd Perm: {command_doc['permission']}")
+            logging.info(f"User Perm: {user_permission} | Cmd Perm: {command_doc['permission']}")
             
             if user_permission < command_doc['permission']:
                 #Debug Code - to make sure it doesnt run commands when the users permission is too low
-                #print("users perms are too low")
+                logging.info("users perms are too low")
                 return
 
             cmdcooldown = False
@@ -75,16 +79,19 @@ async def processCommands(msg: Message, command: str):
             for i, arg in enumerate(args[1:], start=1):
                 message = message.replace(f"(arg{i})", arg)
 
-            try:
-                logging.info("Username is valid and exists")
-                user = await globals.client.fetch_user(arg)
-                print(f"User {user.username}")
-            except:
-                logging.info("Username does not exist, applying a fix which may work")
-                message = message.replace("-", "_").replace("_", "-")
-
-            message = message.replace("@ ", "")  # Replace "@" followed by a space
-            message = message.replace("@", "")   # Replace standalone "@"
+            #TBH this is a fix for just the so command, to properly handle usernames with _ and - being inconsistent,
+            # to actually use this change please make sure the database so message is ""    
+            if command_doc['name'] == 'so':
+                try:
+                    logging.info("Username is valid and exists")
+                    user = await globals.client.fetch_user(arg)
+                    print(f"User {user.username}")
+                except:
+                    logging.info("Username does not exist, applying a fix which may work")
+                    userslug = uargs[1]
+                    message = message.replace("-", "_").replace("_", "-")
+            for j, uarg in enumerate(uargs[1:], start=1):
+                message = message.replace(f"(uarg{j})", uarg)
           
             await msg.chatroom.send(message)
     else:

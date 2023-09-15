@@ -1,6 +1,19 @@
 #!editcmd (name) [addalias/enabled/cost/cooldown/message/delete] (str)
 from modules.database import db_context
 from kick import Message
+from globals import client, commands, commands_dir
+
+async def reload_commands(deleted_command):
+    async with db_context as db:
+        command_docs = await db.commands.find().to_list(length=None)
+        total_commands = len(command_docs)
+        loaded_commands = 0
+        print(f"!{deleted_command} Deleted Reloading Commands")
+        for command_doc in command_docs:
+            #print(f"{command_doc['name']} with aliases: {', '.join(command_doc['aliases'])}")
+            for alias in command_doc['aliases']:
+                commands[alias] = command_doc['_id']
+        print(f" Successfully reloaded {total_commands} commands")
 
 async def addAlias(args, msg: Message):
     command_name = args[1]
@@ -23,6 +36,7 @@ async def delete(args, msg: Message):
         result = await commands_collection.delete_one({"name": command_name})
         if result.deleted_count > 0:
             await msg.chatroom.send(f"Command {command_name} deleted")
+            await reload_commands(command_name)
     return
 
 async def enabled(args, msg: Message):
