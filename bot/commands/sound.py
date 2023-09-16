@@ -1,6 +1,6 @@
 from kick import Message
-from modules.cooldown import command_cooldown
-from modules.points import setpoints, viewpoints, rmpoints
+from core.cooldown import command_cooldown
+from core.points import setpoints, viewpoints, rmpoints
 
 
 import os

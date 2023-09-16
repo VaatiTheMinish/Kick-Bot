@@ -1,8 +1,8 @@
 import time
 import random
 
-from modules.points import setpoints, viewpoints
-from modules.cooldown import command_cooldown
+from core.points import setpoints, viewpoints
+from core.cooldown import command_cooldown
 from kick import Message
 
 

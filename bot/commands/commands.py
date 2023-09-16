@@ -1,7 +1,7 @@
 import os
 from kick import Message
-from modules.permissions import PermissionSystem
-from modules.database import db_context
+from core.permissions import PermissionSystem
+from core.database import db_context
 
 permission_system = PermissionSystem()
 

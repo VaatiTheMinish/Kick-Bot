@@ -9,18 +9,18 @@ import unicodedata
 import urllib.parse
 import importlib.util
 import os
-from datetime import datetime
-from kick import Credentials, Message, User, Livestream, Chatroom
 import logging
 
-
+from datetime import datetime
+from kick import Credentials, Message, User, Livestream, Chatroom
 from globals import client, commands, commands_dir
 
-from modules.database import db_context
-from modules.commands import processCommands
-from modules.points import addpoints, addusertodb
-from modules.tts import texttospeach
-from modules.pointsmultiplier import pointsmultiplier
+from core.database import db_context
+from core.commands import processCommands
+from core.points import addpoints, addusertodb
+from core.tts import texttospeach
+from core.pointsmultiplier import pointsmultiplier
+
 #-----
 
 #Uncomment the line below for debugging

@@ -1,6 +1,6 @@
 
 from kick import Message
-from modules.points import addpoints, setpoints, rmpoints
+from core.points import addpoints, setpoints, rmpoints
 import globals
 
 #args 0 command name

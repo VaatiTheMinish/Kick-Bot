@@ -1,6 +1,6 @@
 
 from kick import Message
-from modules.points import showpoints
+from core.points import showpoints
 import globals
 
 async def fetch_and_process(username):

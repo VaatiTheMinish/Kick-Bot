@@ -1,4 +1,4 @@
-from modules.points import setpoints, viewpoints
+from core.points import setpoints, viewpoints
 from kick import Message
 import random
 import time

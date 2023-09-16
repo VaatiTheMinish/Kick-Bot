@@ -17,8 +17,8 @@ import pygame
 from kick import Message
 from gtts import gTTS
 
-from modules.cooldown import command_cooldown
-from modules.database import db_context
+from core.cooldown import command_cooldown
+from core.database import db_context
 
 
 pygame.mixer.init()

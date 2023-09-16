@@ -2,7 +2,7 @@
 #name becomes ailas
 
 from commands.commands import commands
-from modules.database import db_context
+from core.database import db_context
 from kick import Message
 from globals import client, commands, commands_dir
 

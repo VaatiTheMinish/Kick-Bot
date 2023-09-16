@@ -1,5 +1,5 @@
 import logging
-from modules.database import db_context
+from core.database import db_context
 from kick import Message
 
 #Points Multiplier based on the users badges, applys to the highest badge the user has

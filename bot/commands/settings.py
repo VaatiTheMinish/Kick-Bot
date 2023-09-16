@@ -1,4 +1,4 @@
-from modules.database import db_context
+from core.database import db_context
 from kick import Message
 
 #  args[0]   args[1]   args[2]
