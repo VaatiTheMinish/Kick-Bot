@@ -1,152 +1,42 @@
-#!editcmd (name) [addalias/enabled/cost/cooldown/message/delete] (str)
-from modules.database import db_context
+from modules.points import setpoints, viewpoints
 from kick import Message
+import random
+import time
 
-async def addAlias(args, msg: Message):
-    command_name = args[1]
-    alias = args[2]
-    async with db_context as db:
-        commands_collection = db.commands
-        command = await commands_collection.find_one({"name": command_name})
-        if command:
-            aliases = command.get("aliases", [])
-            if alias not in aliases:
-                aliases.append(alias)
-                await commands_collection.update_one({"name": command_name}, {"$set": {"aliases": aliases}})
-            await msg.chatroom.send(f"Added alias: {alias} to command: {command_name}")
-    return
+cooldown_dict = {}  # dictionary to store last gamble time for each user
 
-async def delete(args, msg: Message):
-    command_name = args[1]
-    async with db_context as db:
-        commands_collection = db.commands
-        result = await commands_collection.delete_one({"name": command_name})
-        if result.deleted_count > 0:
-            await msg.chatroom.send(f"Command {command_name} deleted")
-    return
+async def gamble(msg: Message):
 
-async def enabled(args, msg: Message):
-    command_name = args[1]
-    enabled_status = args[2].lower() == 'true'
-    async with db_context as db:
-        commands_collection = db.commands
-        command = await commands_collection.find_one({"name": command_name})
-        if command:
-            await commands_collection.update_one({"name": command_name}, {"$set": {"enabled": enabled_status}})
-            await msg.chatroom.send(f"Set enabled status of command: {command_name} to {enabled_status}")
-    return
+    gamble_str = msg.content.replace('!gamble ', '')
+    if gamble_str.lower() == 'all':
+        gamble_amount = await viewpoints(msg.author.id)
+    else:
+        gamble_amount = int(gamble_str)
 
-async def cost(args, msg: Message):
-    command_name = args[1]
-    cost_value = int(args[2])
-    async with db_context as db:
-        commands_collection = db.commands
-        command = await commands_collection.find_one({"name": command_name})
-        if command:
-            await commands_collection.update_one({"name": command_name}, {"$set": {"cost": cost_value}})
-            await msg.chatroom.send(f"Set cost of command: {command_name} to {cost_value}")
-    return
+    # Get the user's points
+    points = await viewpoints(msg.author.id)
 
-async def cooldown(args, msg: Message):
-    command_name = args[1]
-    cooldown_value = int(args[2])
-    async with db_context as db:
-        commands_collection = db.commands
-        command = await commands_collection.find_one({"name": command_name})
-        if command:
-            await commands_collection.update_one({"name": command_name}, {"$set": {"cooldown": cooldown_value}})
-            await msg.chatroom.send(f"Set cooldown of command: {command_name} to {cooldown_value}")
-    return
+    # Check if the user has enough points
+    if points >= gamble_amount:
+        # Subtract the gamble amount from the user's points
+        await setpoints(msg.author.id, points - gamble_amount)
 
-async def message(args, msg: Message):
-    command_name = args[1]
-    message_value = ' '.join(args[2:])
-    async with db_context as db:
-        commands_collection = db.commands
-        command = await commands_collection.find_one({"name": command_name})
-        if command:
-            await commands_collection.update_one({"name": command_name}, {"$set": {"message": message_value}})
-            await msg.chatroom.send(f"Set message of command: {command_name} to {message_value}")
-    return
+        # Determine if the user wins or loses (50/50 chance)
+        win = random.choice([True, False, False, False, False])
 
-async def isfile(args, msg: Message):
-    command_name = args[1]
-    file_value = ' '.join(args[2:])
-    if file_value.lower() not in ["true", "false"]:
-        await msg.chatroom.send(" isfile must be true or false")
-        return
-    file_value = bool(file_value)
-    async with db_context as db:
-        commands_collection = db.commands
-        command = await commands_collection.find_one({"name": command_name})
-        if command:
-            await commands_collection.update_one({"name": command_name}, {"$set": {"file": file_value}})
-            await msg.chatroom.send(f"Set file to: {command_name} to {file_value}")
-    return
-
-async def cooldowntype(args, msg: Message):
-    command_name = args[1]
-    cooldowntype = ' '.join(args[2:])
-    if cooldowntype.lower() not in ["global", "user"]:
-        await msg.chatroom.send("cooldowntype must be 'global' or 'user'")
-        return
-
-    async with db_context as db:
-        commands_collection = db.commands
-        command = await commands_collection.find_one({"name": command_name})
-        if command:
-            await commands_collection.update_one({"name": command_name}, {"$set": {"cooldowntype": cooldowntype}})
-            await msg.chatroom.send(f"Set cooldown for {command_name} to {cooldowntype}")
-    return
-
-async def permission(args, msg: Message):
-    command_name = args[1]
-    permission = ' '.join(args[2:])
-
-    if permission not in ["0","1","2","3","4","5"]:
-        await msg.chatroom.send("Permission must be 0 to 5")
-        return
-    if permission == 0:
-        permission == -1
-    else: 
-        permission = int(permission)
-
-    async with db_context as db:
-        commands_collection = db.commands
-        command = await commands_collection.find_one({"name": command_name})
-        if command:
-            await commands_collection.update_one({"name": command_name}, {"$set": {"permission": permission}})
-            await msg.chatroom.send(f"Set permission for {command_name} to {permission}")
-    return
-
-subcommands = {
-  "addalias": addAlias,
-  "enabled": enabled,
-  "cost": cost,
-  "cooldown": cooldown,
-  "message": message,
-  "permission": permission,
-  "file": isfile,
-  "cooldowntype": cooldowntype,
-  "delete" : delete
-}
-
-async def editcmd(msg: Message):
-
-    args = msg.content.replace("!editcmd ","").split(" ")
-    print(f"Arguments: {args}")
-    if args[0] is None:
-        return
-
-    sub_command = subcommands.get(args[0])
-
-    if sub_command:
-        command_name = args[1]
-        async with db_context as db:
-            commands_collection = db.commands
-            command = await commands_collection.find_one({"name": command_name})
-            if command:
-                await sub_command(args, msg)
-            else:
-                await msg.chatroom.send(f"Command {command_name} does not exist")
-    return
+        if win:
+            # If the user wins, calculate a random gain percentage (0-100%)
+            gain_percentage = random.random()
+            # Add the gamble amount plus the gain to the user's points
+            win_amount = int(gamble_amount * (1 + gain_percentage))
+            await setpoints(msg.author.id, points + win_amount)
+            await msg.chatroom.send(f"@{msg.author} You won! Your new points total is {await viewpoints(msg.author.id)}")
+        else:
+            # If the user loses, calculate a random loss percentage (0-100%)
+            loss_percentage = random.random()
+            # Subtract the gamble amount minus the loss from the user's points
+            loss_amount = int(gamble_amount * (1 - loss_percentage))
+            await setpoints(msg.author.id, points - loss_amount)
+            await msg.chatroom.send(f" @{msg.author} You lost! Your new points total is {await viewpoints(msg.author.id)}")
+    else:
+        await msg.chatroom.send(f"@{msg.author} You don't have enough points to gamble this amount.")
