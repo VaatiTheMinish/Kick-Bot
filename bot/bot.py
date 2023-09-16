@@ -36,9 +36,6 @@ data = {
 }
 
 
-commands_dir = ".\bot\commands\\" #windows path, if on linux do ./commands/
-commands = {}
-
 formatted_datetime = current_datetime.strftime("%m/%d/%Y - %H:%M:%S")
 
 
