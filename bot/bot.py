@@ -11,6 +11,8 @@ import importlib.util
 import os
 from datetime import datetime
 from kick import Credentials, Message, User, Livestream, Chatroom
+import logging
+
 
 from globals import client, commands, commands_dir
 
@@ -20,6 +22,9 @@ from modules.points import addpoints, addusertodb
 from modules.tts import texttospeach
 from modules.pointsmultiplier import pointsmultiplier
 #-----
+
+#Uncomment the line below for debugging
+#logging.getLogger().setLevel(logging.INFO)
 
 current_datetime = datetime.now()
 
