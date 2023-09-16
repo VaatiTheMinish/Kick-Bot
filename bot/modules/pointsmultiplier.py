@@ -1,3 +1,4 @@
+import logging
 from modules.database import db_context
 from kick import Message
 
@@ -7,7 +8,6 @@ async def pointsmultiplier(msg: Message, points):
     async with db_context as db:
         pointsmultiplier = await db.general.find_one({"name": "multiplier"})
         if not pointsmultiplier['enabled']:
-            print(points)
             return 1
             #print("Not enabled")
 
@@ -24,16 +24,11 @@ async def pointsmultiplier(msg: Message, points):
 
             if multiplier is not None:
                 result = points * multiplier
-                print(result)
+                logging.info(result)
             else:
                 result = points * 1
-                print(result)
+                logging.info(result)
                 #print("No valid badge found in the pointsmultiplier document")
         else:
-            print("No document found with name 'multiplier'")
+            print("Points multiplier data does not exist in the database")
     return result
-
-#TODO 
-# {'type': 'sub_gifter', 'text': 'Sub Gifter', 'count': 4}
-# {'type': 'subscriber', 'text': 'Subscriber', 'count': 1}
-# sub_gifter count 1 25 50 100 200
