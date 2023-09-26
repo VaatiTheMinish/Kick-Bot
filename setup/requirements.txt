@@ -1,9 +1,0 @@
-motor
-asyncio
-pymongo
-requests
-emoji
-git+https://github.com/cibere/kick.py
-pygame
-gtts
-apscheduler
