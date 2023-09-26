@@ -1,3 +1,5 @@
+# DO NOT USE THIS BRANCH FOR NORMAL USE, THIS IS NOT 'PRODUCTION' READY
+
 # a self hosted Kick streaming Bot
 made by [Ryohei](https://kick.com/Ryohei), using kick.py 
 
