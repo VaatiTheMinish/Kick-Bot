@@ -1,5 +1,5 @@
 # DO NOT USE THIS BRANCH FOR NORMAL USE, THIS IS NOT 'PRODUCTION' READY
-# as such there may be broken things, and or unfinished parts of the code
+as such there may be broken things, and or unfinished parts of the code
 
 # a self hosted Kick streaming Bot
 made by [Ryohei](https://kick.com/Ryohei), using kick.py 
