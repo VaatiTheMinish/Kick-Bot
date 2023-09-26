@@ -34,6 +34,7 @@ config.read("config/config.ini")
 channel = str(config.get("botcredentials", "channel"))
 username = str(config.get("botcredentials", "username"))
 password = str(config.get("botcredentials", "password"))
+version = str(config.get("version", "version"))
 
 data = {
     'username': username,
@@ -99,7 +100,7 @@ async def on_ready():
 
     print(f'''
 == Done Loading {loaded_commands} commannds. == 
-   Version: PR5.0.R1 | Made by Ryohei
+   Version: {version} | Made by Ryohei
    There May and will be bugs 
    Logged in as: {client.user.slug} in Channel: {channel}
 {formatted_datetime} | Bot Now Online and waiting!''')
